@@ -58,7 +58,6 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="If you are following a standard trajectory, select your department and group. Otherwise, hit the &quot;custom timetable&quot; button below to be able to select individual courses."
-            android:id="@+id/textView"
             android:layout_gravity="center_horizontal" />
 
         <Spinner

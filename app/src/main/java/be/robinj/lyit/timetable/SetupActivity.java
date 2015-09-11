@@ -4,6 +4,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Spinner;
 
 public class SetupActivity
 	extends ActionBarActivity
@@ -15,7 +16,9 @@ public class SetupActivity
 		super.onCreate (savedInstanceState);
 		setContentView (R.layout.activity_setup);
 
-		(new AsyncSetupFetchDepartments ()).execute ();
+		Spinner spiDepartment = (Spinner) this.findViewById (R.id.spiDepartment);
+
+		(new AsyncSetupFetchDepartments (this, spiDepartment)).execute ();
 	}
 
 	@Override

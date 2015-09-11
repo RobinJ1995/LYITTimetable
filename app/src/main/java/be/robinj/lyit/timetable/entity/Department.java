@@ -79,4 +79,14 @@ public class Department
 
 		return departments;
 	}
+
+	public String getName ()
+	{
+		return this.name;
+	}
+
+	public String getCode ()
+	{
+		return this.code;
+	}
 }
