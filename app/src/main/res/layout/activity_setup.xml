@@ -18,7 +18,8 @@
             android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/linearLayout">
+            android:id="@+id/linearLayout"
+            android:animateLayoutChanges="true">
 
             <ProgressBar
                 android:layout_width="wrap_content"
@@ -41,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Large Text"
             android:visibility="gone"
             android:id="@+id/tvStatus" />
     </LinearLayout>
@@ -51,7 +51,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/linearLayout2">
+        android:layout_below="@+id/linearLayout2"
+        android:animateLayoutChanges="true">
 
         <TextView
             android:layout_width="wrap_content"
@@ -64,13 +65,15 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spiDepartment"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
 
         <Spinner
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/spiGroup"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="center_horizontal"
+            android:visibility="gone" />
 
     </LinearLayout>
 

@@ -1,14 +1,12 @@
-package be.robinj.lyit.timetable;
+package be.robinj.lyit.timetable.async;
 
-import android.content.Context;
 import android.os.AsyncTask;
+import android.view.View;
 import android.widget.Spinner;
-import android.widget.TextView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
+import be.robinj.lyit.timetable.SetupActivity;
 import be.robinj.lyit.timetable.adapter.SetupDepartmentAdapter;
 import be.robinj.lyit.timetable.entity.Department;
 
@@ -17,12 +15,12 @@ import be.robinj.lyit.timetable.entity.Department;
  */
 public class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List<Department>>
 {
-	private Context context;
+	private SetupActivity parent;
 	private Spinner spiDepartment;
 
-	public AsyncSetupFetchDepartments (Context context, Spinner spiDepartment)
+	public AsyncSetupFetchDepartments (SetupActivity parent, Spinner spiDepartment)
 	{
-		this.context = context;
+		this.parent = parent;
 		this.spiDepartment = spiDepartment;
 	}
 
@@ -32,11 +30,14 @@ public class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List<Depar
 		try
 		{
 			List<Department> departments = Department.fetch ();
+			departments.add (0, null);
+
 			return departments;
 		}
 		catch (Exception ex)
 		{
 			ex.printStackTrace ();
+
 			return null;
 		}
 	}
@@ -46,7 +47,12 @@ public class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List<Depar
 	{
 		super.onPostExecute (departments);
 
-		SetupDepartmentAdapter adapter = new SetupDepartmentAdapter (this.context, departments);
+		SetupDepartmentAdapter adapter = new SetupDepartmentAdapter (this.parent, departments);
 		this.spiDepartment.setAdapter (adapter);
+		this.spiDepartment.setVisibility (View.VISIBLE);
+
+		this.parent.setStatus (null);
+
+
 	}
 }

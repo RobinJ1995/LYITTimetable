@@ -1,9 +1,7 @@
 package be.robinj.lyit.timetable.entity;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,22 +9,21 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by robin on 11/09/15.
+ * Created by robin on 07/10/15.
  */
-public class Department extends Entity
+public class Group extends Entity
 {
-	public Department (String name, String code)
+	public Group (String name, String code)
 	{
 		super (name, code);
 	}
 
-	public static List<Department> fetch () throws Exception
+	public static List<Group> fetch () throws Exception
 	{
-		// Please tell me this is a joke... //
 		URL url = new URL ("http://timetables.lyit.ie/js/filter.js");
 
-		Pattern pattern = Pattern.compile ("\\s*deptarray\\[(\\d)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
-		List<Department> departments = new ArrayList<> ();
+		Pattern pattern = Pattern.compile ("\\s*studsetarray\\[(\\d)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
+		List<Group> groups = new ArrayList<> ();
 
 		InputStreamReader streamReader = new InputStreamReader (url.openStream ());
 		BufferedReader reader = new BufferedReader (streamReader);
@@ -36,6 +33,7 @@ public class Department extends Entity
 
 		String name = null;
 		String code = null;
+		boolean randomness = false;
 
 		boolean go = false;
 		while ((line = reader.readLine ()) != null)
@@ -56,23 +54,26 @@ public class Department extends Entity
 				{
 					if (name == null)
 						name = matcher.group (3);
-					else
+					else if (code == null)
 						code = matcher.group (3);
+					else
+						randomness = true;
 				}
 
-				if (name != null && code != null)
+				if (name != null && code != null && randomness)
 				{
-					Department department = new Department (name, code);
-					departments.add (department);
+					Group group = new Group (name, code);
+					groups.add (group);
 
 					name = null;
 					code = null;
+					randomness = false;
 				}
 			}
 		}
 
 		reader.close ();
 
-		return departments;
+		return groups;
 	}
 }

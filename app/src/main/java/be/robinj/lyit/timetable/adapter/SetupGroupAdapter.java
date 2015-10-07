@@ -10,15 +10,15 @@ import android.widget.TextView;
 import java.util.List;
 
 import be.robinj.lyit.timetable.R;
-import be.robinj.lyit.timetable.entity.Department;
+import be.robinj.lyit.timetable.entity.Group;
 
 /**
  * Created by robin on 11/09/15.
  */
-public class SetupDepartmentAdapter
-	extends ArrayAdapter<Department>
+public class SetupGroupAdapter
+	extends ArrayAdapter<Group>
 {
-	public SetupDepartmentAdapter (Context context, List<Department> entities)
+	public SetupGroupAdapter (Context context, List<Group> entities)
 	{
 		super (context, R.layout.setup_entity_spinner_item, entities);
 	}
@@ -31,7 +31,7 @@ public class SetupDepartmentAdapter
 
 	public View getView (int position, View view, ViewGroup parent, boolean dropdown)
 	{
-		Department entity = this.getItem (position);
+		Group entity = this.getItem (position);
 
 		if (view == null)
 			view = LayoutInflater.from (this.getContext ()).inflate (R.layout.setup_entity_spinner_item, parent, false);
@@ -46,7 +46,7 @@ public class SetupDepartmentAdapter
 		{
 			if (! dropdown)
 			{
-				name = "Department";
+				name = "Group";
 				code = "Please make a selection...";
 			}
 			else
