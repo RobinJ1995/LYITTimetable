@@ -2,8 +2,12 @@ package be.robinj.lyit.timetable.listener;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Spinner;
 
+import be.robinj.lyit.timetable.R;
 import be.robinj.lyit.timetable.SetupActivity;
+import be.robinj.lyit.timetable.async.AsyncSetupFetchDepartments;
+import be.robinj.lyit.timetable.async.AsyncSetupFetchGroups;
 import be.robinj.lyit.timetable.entity.Department;
 
 /**
@@ -21,9 +25,19 @@ public class SetupDepartmentOnItemSelectedListener implements AdapterView.OnItem
 	@Override
 	public void onItemSelected (AdapterView<?> parent, View view, int position, long id)
 	{
-		this.parent.setStatus ("Fetching groups...");
-
 		Department department = (Department) view.getTag ();
+		Spinner spiGroup = (Spinner) this.parent.findViewById (R.id.spiGroup);
+
+		if (department != null)
+		{
+			this.parent.setStatus ("Fetching groups...");
+
+			(new AsyncSetupFetchGroups (this.parent, spiGroup, department)).execute ();
+		}
+		else
+		{
+			spiGroup.setVisibility (View.GONE);
+		}
 	}
 
 	@Override

@@ -9,6 +9,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import be.robinj.lyit.timetable.async.AsyncSetupFetchDepartments;
+import be.robinj.lyit.timetable.entity.Department;
 
 public class SetupActivity
 	extends ActionBarActivity

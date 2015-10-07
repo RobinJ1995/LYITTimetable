@@ -9,6 +9,7 @@ import java.util.List;
 import be.robinj.lyit.timetable.SetupActivity;
 import be.robinj.lyit.timetable.adapter.SetupDepartmentAdapter;
 import be.robinj.lyit.timetable.entity.Department;
+import be.robinj.lyit.timetable.listener.SetupDepartmentOnItemSelectedListener;
 
 /**
  * Created by robin on 11/09/15.
@@ -53,6 +54,7 @@ public class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List<Depar
 
 		this.parent.setStatus (null);
 
-
+		SetupDepartmentOnItemSelectedListener listener = new SetupDepartmentOnItemSelectedListener (this.parent);
+		this.spiDepartment.setOnItemSelectedListener (listener);
 	}
 }

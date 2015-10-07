@@ -9,6 +9,7 @@ import java.util.List;
 import be.robinj.lyit.timetable.SetupActivity;
 import be.robinj.lyit.timetable.adapter.SetupDepartmentAdapter;
 import be.robinj.lyit.timetable.adapter.SetupGroupAdapter;
+import be.robinj.lyit.timetable.entity.Department;
 import be.robinj.lyit.timetable.entity.Group;
 
 /**
@@ -19,11 +20,13 @@ public class AsyncSetupFetchGroups
 {
 	private SetupActivity parent;
 	private Spinner spiGroup;
+	private Department department;
 
-	public AsyncSetupFetchGroups (SetupActivity parent, Spinner spiGroup)
+	public AsyncSetupFetchGroups (SetupActivity parent, Spinner spiGroup, Department department)
 	{
 		this.parent = parent;
 		this.spiGroup = spiGroup;
+		this.department = department;
 	}
 
 	@Override
