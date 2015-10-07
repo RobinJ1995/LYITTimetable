@@ -13,16 +13,20 @@ import java.util.regex.Pattern;
  */
 public class Group extends Entity
 {
-	public Group (String name, String code)
+	private String departmentCode;
+
+	public Group (String name, String code, String departmentCode)
 	{
 		super (name, code);
+
+		this.departmentCode = departmentCode;
 	}
 
 	public static List<Group> fetch () throws Exception
 	{
 		URL url = new URL ("http://timetables.lyit.ie/js/filter.js");
 
-		Pattern pattern = Pattern.compile ("\\s*studsetarray\\[(\\d)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
+		Pattern pattern = Pattern.compile ("\\s*studsetarray\\[(\\d+)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
 		List<Group> groups = new ArrayList<> ();
 
 		InputStreamReader streamReader = new InputStreamReader (url.openStream ());
@@ -32,41 +36,48 @@ public class Group extends Entity
 		String line = null;
 
 		String name = null;
-		String code = null;
+		String departmentCode = null;
 		boolean randomness = false;
 
 		boolean go = false;
 		while ((line = reader.readLine ()) != null)
 		{
-			if ((! go) && line.contains ("deptarray[0]"))
+			if ((! go) && line.contains ("studsetarray[0]"))
 				go = true;
 
-			if (go && line.contains ("deptarray.sort"))
+			if (go && line.contains ("studsetarray.sort"))
 				go = false;
 
 			if (go)
 			{
-				// Apparently not... Parsing a Javascript array with regular expressions... Let's go. //
-				//WARNING// This will break when the timetable system changes (so at least when this breaks it may actually be good news) //
 				Matcher matcher = pattern.matcher (line);
 
 				if (matcher.matches ())
 				{
 					if (name == null)
 						name = matcher.group (3);
-					else if (code == null)
-						code = matcher.group (3);
+					else if (departmentCode == null)
+						departmentCode = matcher.group (3);
 					else
 						randomness = true;
 				}
 
-				if (name != null && code != null && randomness)
+				if (name != null && departmentCode != null && randomness)
 				{
-					Group group = new Group (name, code);
+					String[] parts = name.split ("\\s-\\s");
+					String code = "";
+
+					if (parts.length == 2)
+					{
+						code = parts[0];
+						name = parts[1];
+					}
+
+					Group group = new Group (name, code, departmentCode);
 					groups.add (group);
 
 					name = null;
-					code = null;
+					departmentCode = null;
 					randomness = false;
 				}
 			}
@@ -75,5 +86,15 @@ public class Group extends Entity
 		reader.close ();
 
 		return groups;
+	}
+
+	public String getDepartmentCode ()
+	{
+		return this.departmentCode;
+	}
+
+	public void setDepartmentCode (String departmentCode)
+	{
+		this.departmentCode = departmentCode;
 	}
 }

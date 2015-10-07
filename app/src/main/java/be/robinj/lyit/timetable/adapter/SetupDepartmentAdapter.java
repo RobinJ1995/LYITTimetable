@@ -20,7 +20,7 @@ public class SetupDepartmentAdapter
 {
 	public SetupDepartmentAdapter (Context context, List<Department> entities)
 	{
-		super (context, R.layout.setup_entity_spinner_item, entities);
+		super (context, R.layout.setup_department_spinner_item, entities);
 	}
 
 	@Override
@@ -34,7 +34,7 @@ public class SetupDepartmentAdapter
 		Department entity = this.getItem (position);
 
 		if (view == null)
-			view = LayoutInflater.from (this.getContext ()).inflate (R.layout.setup_entity_spinner_item, parent, false);
+			view = LayoutInflater.from (this.getContext ()).inflate (R.layout.setup_department_spinner_item, parent, false);
 
 		TextView tvName = (TextView) view.findViewById (R.id.tvName);
 		TextView tvCode = (TextView) view.findViewById (R.id.tvCode);

@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import be.robinj.lyit.timetable.SetupActivity;
@@ -21,6 +22,7 @@ public class AsyncSetupFetchGroups
 	private SetupActivity parent;
 	private Spinner spiGroup;
 	private Department department;
+	private static List<Group> groups;
 
 	public AsyncSetupFetchGroups (SetupActivity parent, Spinner spiGroup, Department department)
 	{
@@ -34,10 +36,20 @@ public class AsyncSetupFetchGroups
 	{
 		try
 		{
-			List<Group> groups = Group.fetch ();
-			groups.add (0, null);
+			List<Group> results = new ArrayList<Group> ();
 
-			return groups;
+			if (AsyncSetupFetchGroups.groups == null || AsyncSetupFetchGroups.groups.isEmpty ())
+				AsyncSetupFetchGroups.groups = Group.fetch ();
+
+			for (Group group : AsyncSetupFetchGroups.groups)
+			{
+				if (this.department.getCode ().equals (group.getDepartmentCode ()))
+					results.add (group);
+			}
+
+			results.add (0, null);
+
+			return results;
 		}
 		catch (Exception ex)
 		{
@@ -57,7 +69,6 @@ public class AsyncSetupFetchGroups
 		this.spiGroup.setVisibility (View.VISIBLE);
 
 		this.parent.setStatus (null);
-
 
 	}
 }

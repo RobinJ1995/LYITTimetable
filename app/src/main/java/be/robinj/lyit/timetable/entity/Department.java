@@ -25,7 +25,7 @@ public class Department extends Entity
 		// Please tell me this is a joke... //
 		URL url = new URL ("http://timetables.lyit.ie/js/filter.js");
 
-		Pattern pattern = Pattern.compile ("\\s*deptarray\\[(\\d)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
+		Pattern pattern = Pattern.compile ("\\s*deptarray\\[(\\d+)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
 		List<Department> departments = new ArrayList<> ();
 
 		InputStreamReader streamReader = new InputStreamReader (url.openStream ());
