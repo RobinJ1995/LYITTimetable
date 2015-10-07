@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -30,10 +31,12 @@ public class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List<Depar
 	{
 		try
 		{
-			return Department.fetch ();
-		} catch (Exception e)
+			List<Department> departments = Department.fetch ();
+			return departments;
+		}
+		catch (Exception ex)
 		{
-			e.printStackTrace ();
+			ex.printStackTrace ();
 			return null;
 		}
 	}

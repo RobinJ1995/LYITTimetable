@@ -1,6 +1,7 @@
 package be.robinj.lyit.timetable.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,10 +33,19 @@ public class SetupDepartmentAdapter
 			view = LayoutInflater.from (this.getContext ()).inflate (R.layout.setup_department_spinner_item, parent, false);
 
 		TextView tvName = (TextView) view.findViewById (R.id.tvName);
+		TextView tvCode = (TextView) view.findViewById (R.id.tvCode);
+
 		tvName.setText (department.getName ());
+		tvCode.setText (department.getCode ());
 
 		view.setTag (department);
 
 		return view;
+	}
+
+	@Override
+	public View getDropDownView (int position, View view, ViewGroup parent)
+	{
+		return this.getView (position, view, parent);
 	}
 }
