@@ -12,6 +12,7 @@ import be.robinj.lyit.timetable.adapter.SetupDepartmentAdapter;
 import be.robinj.lyit.timetable.adapter.SetupGroupAdapter;
 import be.robinj.lyit.timetable.entity.Department;
 import be.robinj.lyit.timetable.entity.Group;
+import be.robinj.lyit.timetable.listener.SetupGroupOnItemSelectedListener;
 
 /**
  * Created by robin on 11/09/15.
@@ -70,5 +71,7 @@ public class AsyncSetupFetchGroups
 
 		this.parent.setStatus (null);
 
+		SetupGroupOnItemSelectedListener listener = new SetupGroupOnItemSelectedListener (this.parent);
+		this.spiGroup.setOnItemSelectedListener (listener);
 	}
 }

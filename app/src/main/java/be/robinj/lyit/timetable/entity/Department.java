@@ -44,7 +44,7 @@ public class Department extends Entity
 				go = true;
 
 			if (go && line.contains ("deptarray.sort"))
-				go = false;
+				break;
 
 			if (go)
 			{

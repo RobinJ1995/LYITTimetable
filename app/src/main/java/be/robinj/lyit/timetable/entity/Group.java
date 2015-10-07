@@ -46,7 +46,7 @@ public class Group extends Entity
 				go = true;
 
 			if (go && line.contains ("studsetarray.sort"))
-				go = false;
+				break;
 
 			if (go)
 			{
@@ -64,7 +64,7 @@ public class Group extends Entity
 
 				if (name != null && departmentCode != null && randomness)
 				{
-					String[] parts = name.split ("\\s-\\s");
+					String[] parts = name.split ("\\s-\\s", 2);
 					String code = "";
 
 					if (parts.length == 2)
