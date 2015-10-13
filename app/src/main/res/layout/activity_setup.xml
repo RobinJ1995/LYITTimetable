@@ -74,12 +74,13 @@
             android:layout_gravity="center_horizontal"
             android:visibility="gone" />
 
-        <Spinner
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/spiGroup"
+            android:id="@+id/lvGroup"
             android:layout_gravity="center_horizontal"
-            android:visibility="gone" />
+            android:visibility="gone">
+        </ListView>
 
     </LinearLayout>
 

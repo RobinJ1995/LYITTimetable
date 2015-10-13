@@ -2,6 +2,7 @@ package be.robinj.lyit.timetable.async;
 
 import android.os.AsyncTask;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -21,14 +22,14 @@ public class AsyncSetupFetchGroups
 	extends AsyncTask<Void, Void, List<Group>>
 {
 	private SetupActivity parent;
-	private Spinner spiGroup;
+	private ListView lvGroup;
 	private Department department;
 	private static List<Group> groups;
 
-	public AsyncSetupFetchGroups (SetupActivity parent, Spinner spiGroup, Department department)
+	public AsyncSetupFetchGroups (SetupActivity parent, ListView lvGroup, Department department)
 	{
 		this.parent = parent;
-		this.spiGroup = spiGroup;
+		this.lvGroup = lvGroup;
 		this.department = department;
 	}
 
@@ -48,8 +49,6 @@ public class AsyncSetupFetchGroups
 					results.add (group);
 			}
 
-			results.add (0, null);
-
 			return results;
 		}
 		catch (Exception ex)
@@ -66,12 +65,12 @@ public class AsyncSetupFetchGroups
 		super.onPostExecute (groups);
 
 		SetupGroupAdapter adapter = new SetupGroupAdapter (this.parent, groups);
-		this.spiGroup.setAdapter (adapter);
-		this.spiGroup.setVisibility (View.VISIBLE);
+		this.lvGroup.setAdapter (adapter);
+		this.lvGroup.setVisibility (View.VISIBLE);
 
 		this.parent.setStatus (null);
 
 		SetupGroupOnItemSelectedListener listener = new SetupGroupOnItemSelectedListener (this.parent);
-		this.spiGroup.setOnItemSelectedListener (listener);
+		this.lvGroup.setOnItemSelectedListener (listener);
 	}
 }

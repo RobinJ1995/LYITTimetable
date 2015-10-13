@@ -2,6 +2,7 @@ package be.robinj.lyit.timetable.listener;
 
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,14 +34,13 @@ public class SetupGroupOnItemSelectedListener
 		{
 			TextView tvIntroduction = (TextView) this.parent.findViewById (R.id.tvIntroduction);
 			Spinner spiDepartment = (Spinner) this.parent.findViewById (R.id.spiDepartment);
-			Spinner spiGroup = (Spinner) this.parent.findViewById (R.id.spiGroup);
-
+			ListView lvGroup = (ListView) this.parent.findViewById (R.id.lvGroup);
 
 			tvIntroduction.setVisibility (View.GONE);
 			spiDepartment.setEnabled (false);
-			spiGroup.setEnabled (false);
+			lvGroup.setEnabled (false);
 			spiDepartment.setAlpha (0.6F);
-			spiGroup.setAlpha (0.6F);
+			lvGroup.setAlpha (0.6F);
 
 			this.parent.setStatus ("Parsing timetable...");
 
