@@ -1,10 +1,12 @@
 package be.robinj.lyit.timetable.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
@@ -21,9 +23,16 @@ import be.robinj.lyit.timetable.listener.SetupGroupOnTextviewClickedListener;
 public class SetupGroupAdapter
 	extends ArrayAdapter<Group>
 {
-	public SetupGroupAdapter (Context context, List<Group> entities)
+	private Button btnContinue;
+
+	private List<Group> checkedGroups;
+
+	public SetupGroupAdapter (Context context, List<Group> entities, List<Group> checkedGroups, Button btnContinue)
 	{
 		super (context, R.layout.setup_group_listview_item, entities);
+
+		this.checkedGroups = checkedGroups;
+		this.btnContinue = btnContinue;
 	}
 
 	@Override
@@ -38,14 +47,17 @@ public class SetupGroupAdapter
 		TextView tvCode = (TextView) view.findViewById (R.id.tvCode);
 		CheckBox cbxSelected = (CheckBox) view.findViewById (R.id.cbxSelected);
 
+		cbxSelected.setOnCheckedChangeListener (null); // Views inside a ListView get recycled; Get rid of the old listener //
+
 		tvName.setText (entity.getName ());
 		tvCode.setText (entity.getCode ());
+		cbxSelected.setChecked (this.checkedGroups.contains (entity));
 
 		SetupGroupOnTextviewClickedListener clickedListener = new SetupGroupOnTextviewClickedListener (cbxSelected);
 		tvName.setOnClickListener (clickedListener);
 		tvCode.setOnClickListener (clickedListener);
 
-		SetupGroupOnCheckedChangeListener checkedChangeListener = new SetupGroupOnCheckedChangeListener ();
+		SetupGroupOnCheckedChangeListener checkedChangeListener = new SetupGroupOnCheckedChangeListener (this.checkedGroups, entity, this.btnContinue);
 		cbxSelected.setOnCheckedChangeListener (checkedChangeListener);
 
 		view.setTag (entity);

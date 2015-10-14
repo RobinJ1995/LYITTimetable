@@ -2,18 +2,19 @@ package be.robinj.lyit.timetable.async;
 
 import android.os.AsyncTask;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import be.robinj.lyit.timetable.R;
 import be.robinj.lyit.timetable.SetupActivity;
 import be.robinj.lyit.timetable.adapter.SetupDepartmentAdapter;
 import be.robinj.lyit.timetable.adapter.SetupGroupAdapter;
 import be.robinj.lyit.timetable.entity.Department;
 import be.robinj.lyit.timetable.entity.Group;
-import be.robinj.lyit.timetable.listener.SetupGroupOnItemSelectedListener;
 
 /**
  * Created by robin on 11/09/15.
@@ -64,13 +65,11 @@ public class AsyncSetupFetchGroups
 	{
 		super.onPostExecute (groups);
 
-		SetupGroupAdapter adapter = new SetupGroupAdapter (this.parent, groups);
+		SetupGroupAdapter adapter = new SetupGroupAdapter (this.parent, groups, this.parent.getCheckedGroups (), (Button) this.parent.findViewById (R.id.btnContinue));
 		this.lvGroup.setAdapter (adapter);
 		this.lvGroup.setVisibility (View.VISIBLE);
 
+		this.parent.setInstructions ("Please select your group(s).");
 		this.parent.setStatus (null);
-
-		SetupGroupOnItemSelectedListener listener = new SetupGroupOnItemSelectedListener (this.parent);
-		this.lvGroup.setOnItemSelectedListener (listener);
 	}
 }

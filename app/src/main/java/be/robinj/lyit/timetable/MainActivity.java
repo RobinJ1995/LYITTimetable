@@ -17,8 +17,8 @@ public class MainActivity
 		super.onCreate (savedInstanceState);
 		setContentView (R.layout.activity_main);
 
-		SharedPreferences prefs = this.getSharedPreferences ("preferences", MODE_PRIVATE);
-		if (!prefs.getBoolean ("setupCompleted", false))
+		SharedPreferences prefs = this.getSharedPreferences ("prefs", MODE_PRIVATE);
+		if (prefs.getStringSet ("groups", null) == null)
 		{
 			Intent intent = new Intent (this, SetupActivity.class);
 			this.startActivity (intent);

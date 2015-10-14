@@ -9,6 +9,7 @@ import java.util.List;
 import be.robinj.lyit.timetable.SetupActivity;
 import be.robinj.lyit.timetable.adapter.SetupDepartmentAdapter;
 import be.robinj.lyit.timetable.entity.Department;
+import be.robinj.lyit.timetable.entity.Group;
 import be.robinj.lyit.timetable.listener.SetupDepartmentOnItemSelectedListener;
 
 /**

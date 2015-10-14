@@ -52,8 +52,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:id="@+id/tvIntroduction"
-            android:text="If you are following a standard trajectory, select your department and group. Otherwise, hit the &quot;custom timetable&quot; button below to be able to select individual courses."
+            android:id="@+id/tvInstructions"
+            android:text="Please select your department."
             android:layout_gravity="center_horizontal" />
     </LinearLayout>
 
@@ -79,8 +79,18 @@
             android:layout_height="wrap_content"
             android:id="@+id/lvGroup"
             android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
             android:visibility="gone">
         </ListView>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Continue"
+            android:id="@+id/btnContinue"
+            android:layout_gravity="end"
+            android:visibility="gone"
+            android:onClick="btnContinue_clicked" />
 
     </LinearLayout>
 
