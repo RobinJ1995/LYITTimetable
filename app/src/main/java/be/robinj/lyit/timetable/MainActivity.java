@@ -7,6 +7,12 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+
+import be.robinj.lyit.timetable.entity.Group;
+
 public class MainActivity
 	extends ActionBarActivity
 {
@@ -18,10 +24,26 @@ public class MainActivity
 		setContentView (R.layout.activity_main);
 
 		SharedPreferences prefs = this.getSharedPreferences ("prefs", MODE_PRIVATE);
-		if (prefs.getStringSet ("groups", null) == null)
+		Set<String> strsGroups = prefs.getStringSet ("groups", null);
+
+		if (strsGroups == null)
 		{
 			Intent intent = new Intent (this, SetupActivity.class);
 			this.startActivity (intent);
+		}
+		else
+		{
+			List<Group> groups = new ArrayList<Group> ();
+
+			for (String strGroup : strsGroups)
+			{
+				String[] arrGroup = strGroup.split ("\n");
+				Group group = new Group (arrGroup[0], arrGroup[1], arrGroup[2]);
+
+				groups.add (group);
+			}
+
+			Timetable.fetch (groups);
 		}
 	}
 

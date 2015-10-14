@@ -83,7 +83,7 @@ public class SetupActivity
 
 		Set<String> groups = new HashSet<String> ();
 		for (Group group : this.checkedGroups)
-			groups.add (group.getCode ());
+			groups.add (group.getName () + "\n" + group.getCode () + "\n" + group.getDepartmentCode ());
 
 		editor.putStringSet ("groups", groups);
 
