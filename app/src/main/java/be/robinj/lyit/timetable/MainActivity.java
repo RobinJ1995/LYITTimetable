@@ -2,6 +2,7 @@ package be.robinj.lyit.timetable;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.StrictMode;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -26,6 +27,9 @@ public class MainActivity
 		SharedPreferences prefs = this.getSharedPreferences ("prefs", MODE_PRIVATE);
 		Set<String> strsGroups = prefs.getStringSet ("groups", null);
 
+		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder ().permitAll ().build (); // If this piece of code is still in when I hand in the assignment, I probably didn't have enough time to do it properly. //
+		StrictMode.setThreadPolicy (policy);
+
 		if (strsGroups == null)
 		{
 			Intent intent = new Intent (this, SetupActivity.class);
@@ -33,17 +37,24 @@ public class MainActivity
 		}
 		else
 		{
-			List<Group> groups = new ArrayList<Group> ();
-
-			for (String strGroup : strsGroups)
+			try
 			{
-				String[] arrGroup = strGroup.split ("\n");
-				Group group = new Group (arrGroup[0], arrGroup[1], arrGroup[2]);
+				List<Group> groups = new ArrayList<Group> ();
 
-				groups.add (group);
+				for (String strGroup : strsGroups)
+				{
+					String[] arrGroup = strGroup.split ("\n");
+					Group group = new Group (arrGroup[0], arrGroup[1], arrGroup[2]);
+
+					groups.add (group);
+				}
+
+				Timetable.fetch (groups);
 			}
-
-			Timetable.fetch (groups);
+			catch (Exception ex)
+			{
+				ex.printStackTrace (); //TODO//
+			}
 		}
 	}
 

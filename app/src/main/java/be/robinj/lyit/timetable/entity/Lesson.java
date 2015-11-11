@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import be.robinj.lyit.timetable.Timespan;
+
 /**
  * Created by robin on 07/10/15.
  */
@@ -15,11 +17,19 @@ public class Lesson
 	extends Entity
 {
 	private Group group;
+	private boolean practical;
+	private Timespan timespan;
+	private List<String> rooms;
+	private List<String> staff;
 
-	public Lesson (String name, String code, Group group)
+	public Lesson (String name, String code, Group group, boolean practical, Timespan timespan, List<String> rooms, List<String> staff)
 	{
 		super (name, code);
 
 		this.group = group;
+		this.practical = practical;
+		this.timespan = timespan;
+		this.rooms = rooms;
+		this.staff = staff;
 	}
 }
