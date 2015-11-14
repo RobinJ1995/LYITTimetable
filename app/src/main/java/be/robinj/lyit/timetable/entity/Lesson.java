@@ -16,11 +16,11 @@ import be.robinj.lyit.timetable.Timespan;
 public class Lesson
 	extends Entity
 {
-	private Group group;
-	private boolean practical;
-	private Timespan timespan;
-	private List<String> rooms;
-	private List<String> staff;
+	public Group group;
+	public boolean practical;
+	public Timespan timespan;
+	public List<String> rooms;
+	public List<String> staff;
 
 	public Lesson (String name, String code, Group group, boolean practical, Timespan timespan, List<String> rooms, List<String> staff)
 	{

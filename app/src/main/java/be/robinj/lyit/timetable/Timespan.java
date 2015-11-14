@@ -5,8 +5,8 @@ package be.robinj.lyit.timetable;
  */
 public class Timespan
 {
-	private Time start;
-	private Time end;
+	public Time start;
+	public Time end;
 
 	public Timespan (Time start, Time end)
 	{

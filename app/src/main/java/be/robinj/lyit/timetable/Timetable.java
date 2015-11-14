@@ -21,20 +21,10 @@ import be.robinj.lyit.timetable.entity.Lesson;
  */
 public class Timetable
 {
-	public static HashMap<String, List<Lesson>> fetch (List<Group> groups) throws IOException
+	public static HashMap<String, List<Lesson>> fetch (Group group) throws IOException
 	{
-		String url = "http://www.lyit.ie:8001/reporting/textspreadsheet;student+set;id;{:groups:}?t=student+set+textspreadsheet&template=student+set+textspreadsheet";
-
-		StringBuilder strbGroups = new StringBuilder ();
-		for (Group group : groups)
-		{
-			if (strbGroups.length () > 0)
-				strbGroups.append ("%0D%0A%23"); // Decoded: "\r\n#" //
-
-			strbGroups.append (URLEncoder.encode (group.getCode ()));
-		}
-
-		url = url.replace ("{:groups:}", strbGroups.toString ());
+		final String url = "http://www.lyit.ie:8001/reporting/textspreadsheet;student+set;id;" + URLEncoder.encode (group.getCode ()) + "%0D%0A%23?t=student+set+textspreadsheet&template=student+set+textspreadsheet";
+		// %0D%0A%23 // Decoded : "\r\n#" //
 
 		HashMap<String, List<Lesson>> data = new HashMap<> ();
 		String day = null;
