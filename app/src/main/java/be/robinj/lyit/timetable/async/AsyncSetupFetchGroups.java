@@ -1,5 +1,6 @@
 package be.robinj.lyit.timetable.async;
 
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public final class AsyncSetupFetchGroups
 	private final ListView lvGroup;
 	private final Department department;
 	private static List<Group> groups;
+	private String errorMessage;
 
 	public AsyncSetupFetchGroups (SetupActivity parent, ListView lvGroup, Department department)
 	{
@@ -54,7 +56,7 @@ public final class AsyncSetupFetchGroups
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace ();
+			this.errorMessage = ex.getMessage ();
 
 			return null;
 		}
@@ -65,11 +67,22 @@ public final class AsyncSetupFetchGroups
 	{
 		super.onPostExecute (groups);
 
-		SetupGroupAdapter adapter = new SetupGroupAdapter (this.parent, groups, this.parent.getCheckedGroups (), (Button) this.parent.findViewById (R.id.btnContinue));
-		this.lvGroup.setAdapter (adapter);
-		this.lvGroup.setVisibility (View.VISIBLE);
+		if (groups != null)
+		{
+			SetupGroupAdapter adapter = new SetupGroupAdapter (this.parent, groups, this.parent.getCheckedGroups (), (Button) this.parent.findViewById (R.id.btnContinue));
+			this.lvGroup.setAdapter (adapter);
+			this.lvGroup.setVisibility (View.VISIBLE);
 
-		this.parent.setInstructions ("Please select your group(s).");
-		this.parent.setStatus (null);
+			this.parent.setInstructions ("Please select your group(s).");
+			this.parent.setStatus (null);
+		}
+		else
+		{
+			new AlertDialog.Builder (this.parent)
+				.setTitle ("(╯°□°）╯︵ ┻━┻")
+				.setMessage ("Couldn't get list of groups for this department.\n\n" + this.errorMessage)
+				.create ()
+				.show ();
+		}
 	}
 }

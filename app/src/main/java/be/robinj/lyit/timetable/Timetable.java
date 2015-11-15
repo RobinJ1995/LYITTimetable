@@ -78,7 +78,7 @@ public class Timetable
 									List<String> rooms = new ArrayList<> ();
 									for (String strRoom : fRoom.split (";"))
 									{
-										String trimmed = fRoom.trim ();
+										String trimmed = strRoom.trim ();
 
 										if (!trimmed.isEmpty ())
 											rooms.add (trimmed);

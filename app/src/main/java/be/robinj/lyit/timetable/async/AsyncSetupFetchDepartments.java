@@ -1,5 +1,6 @@
 package be.robinj.lyit.timetable.async;
 
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Spinner;
@@ -19,6 +20,7 @@ public final class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List
 {
 	private final SetupActivity parent;
 	private final Spinner spiDepartment;
+	private String errorMessage;
 
 	public AsyncSetupFetchDepartments (SetupActivity parent, Spinner spiDepartment)
 	{
@@ -38,7 +40,7 @@ public final class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List
 		}
 		catch (Exception ex)
 		{
-			ex.printStackTrace ();
+			this.errorMessage = ex.getMessage ();
 
 			return null;
 		}
@@ -49,13 +51,24 @@ public final class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List
 	{
 		super.onPostExecute (departments);
 
-		SetupDepartmentAdapter adapter = new SetupDepartmentAdapter (this.parent, departments);
-		this.spiDepartment.setAdapter (adapter);
-		this.spiDepartment.setVisibility (View.VISIBLE);
+		if (departments != null)
+		{
+			SetupDepartmentAdapter adapter = new SetupDepartmentAdapter (this.parent, departments);
+			this.spiDepartment.setAdapter (adapter);
+			this.spiDepartment.setVisibility (View.VISIBLE);
 
-		this.parent.setStatus (null);
+			this.parent.setStatus (null);
 
-		SetupDepartmentOnItemSelectedListener listener = new SetupDepartmentOnItemSelectedListener (this.parent);
-		this.spiDepartment.setOnItemSelectedListener (listener);
+			SetupDepartmentOnItemSelectedListener listener = new SetupDepartmentOnItemSelectedListener (this.parent);
+			this.spiDepartment.setOnItemSelectedListener (listener);
+		}
+		else
+		{
+			new AlertDialog.Builder (this.parent)
+				.setTitle ("(╯°□°）╯︵ ┻━┻")
+				.setMessage ("Couldn't get list of departments.\n\n" + this.errorMessage)
+				.create ()
+				.show ();
+		}
 	}
 }

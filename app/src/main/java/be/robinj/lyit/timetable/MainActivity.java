@@ -170,8 +170,6 @@ public final class MainActivity
 
 	private void errorTimetable (Group group, Exception ex)
 	{
-		Log.e ("error", ex.getMessage ());
-
 		new AlertDialog.Builder (this)
 			.setTitle ("(╯°□°）╯︵ ┻━┻")
 			.setMessage ("Couldn't get timetable for group " + group.name + ".\n\n" + ex.getMessage ())
