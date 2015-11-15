@@ -56,7 +56,7 @@ public final class MainActivity
 			try
 			{
 				List<Group> groups = new ArrayList<Group> ();
-				ThreadPoolCoordinator coordinator = new ThreadPoolCoordinator (2);
+				ThreadPoolCoordinator coordinator = new ThreadPoolCoordinator (this, 2);
 
 				final MainActivity self = this;
 

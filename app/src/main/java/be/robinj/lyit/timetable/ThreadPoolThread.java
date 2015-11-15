@@ -23,7 +23,7 @@ public class ThreadPoolThread extends Thread // Mutable, because it would make s
 			}
 			catch (Exception ex)
 			{
-				ex.printStackTrace ();
+				this.coordinator.showErrorMessage (ex.getMessage ());
 			}
 		}
 	}
