@@ -57,40 +57,50 @@ public class Timetable
 						{
 							Elements fields = row.getElementsByTag ("td");
 
-							String fActivity = fields.get (0).text ();
-							String fModule = fields.get (1).text ();
-							String fType = fields.get (2).text ();
-							String fStart = fields.get (3).text ();
-							String fEnd = fields.get (4).text ();
-							// 5 // Duration // Don't care. Will be calculated by Timespan //
-							// 6 // Weeks // Don't care. //
-							String fRoom = fields.get (7).text ();
-							String fStaff = fields.get (8).text ();
-							// 9 // Student groups // Don't care. //
-
-							boolean practical = "Practical".equalsIgnoreCase (fType);
-							Timespan timespan = new Timespan (new Time (fStart), new Time (fEnd));
-
-							List<String> rooms = new ArrayList<> ();
-							for (String strRoom : fRoom.split (";"))
+							if (fields.size () > 8)
 							{
-								String trimmed = fRoom.trim ();
+								try
+								{
+									String fActivity = fields.get (0).text ();
+									String fModule = fields.get (1).text ();
+									String fType = fields.get (2).text ();
+									String fStart = fields.get (3).text ();
+									String fEnd = fields.get (4).text ();
+									// 5 // Duration // Don't care. Will be calculated by Timespan //
+									// 6 // Weeks // Don't care. //
+									String fRoom = fields.get (7).text ();
+									String fStaff = fields.get (8).text ();
+									// 9 // Student groups // Don't care. //
 
-								if (! trimmed.isEmpty ())
-									rooms.add (trimmed);
+									boolean practical = "Practical".equalsIgnoreCase (fType); // Calling .equals () on the literal avoids NullPointerExceptions //
+									Timespan timespan = new Timespan (new Time (fStart), new Time (fEnd));
+
+									List<String> rooms = new ArrayList<> ();
+									for (String strRoom : fRoom.split (";"))
+									{
+										String trimmed = fRoom.trim ();
+
+										if (!trimmed.isEmpty ())
+											rooms.add (trimmed);
+									}
+
+									List<String> staff = new ArrayList<> ();
+									for (String strStaff : fStaff.split (";"))
+									{
+										String trimmed = strStaff.trim ();
+
+										if (!trimmed.isEmpty ())
+											staff.add (trimmed);
+									}
+
+									Lesson lesson = new Lesson (fModule, fActivity, practical, timespan, rooms, staff);
+									lessons.add (lesson);
+								}
+								catch (IndexOutOfBoundsException ex) // Something wrong with the time format... let's not add this one //
+								{
+									ex.printStackTrace (); // Not much I can do but to assume it's not actually a table row containing timetable information, or it's something special which I don't know how to handle //
+								}
 							}
-
-							List<String> staff = new ArrayList<> ();
-							for (String strStaff : fStaff.split (";"))
-							{
-								String trimmed = strStaff.trim ();
-
-								if (! trimmed.isEmpty ())
-									staff.add (trimmed);
-							}
-
-							Lesson lesson = new Lesson (fModule, fActivity, null, practical, timespan, rooms, staff);
-							lessons.add (lesson);
 						}
 					}
 

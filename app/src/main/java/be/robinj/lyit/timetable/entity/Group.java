@@ -24,7 +24,7 @@ public final class Group extends Entity // Immutable because it's not supposed t
 
 	public static List<Group> fetch () throws Exception
 	{
-		URL url = new URL ("http://timetables.lyit.ie/js/filter.js");
+		final URL url = new URL ("http://timetables.lyit.ie/js/filter.js");
 
 		Pattern pattern = Pattern.compile ("\\s*studsetarray\\[(\\d+)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
 		List<Group> groups = new ArrayList<> ();
@@ -41,6 +41,7 @@ public final class Group extends Entity // Immutable because it's not supposed t
 		boolean go = false;
 		while ((line = reader.readLine ()) != null)
 		{
+			// Same as in Department class... A lot can go wrong, but pretty safe to assume "studsetarray[0]" won't get found or an exception will get thrown before this point //
 			if ((! go) && line.contains ("studsetarray[0]"))
 				go = true;
 

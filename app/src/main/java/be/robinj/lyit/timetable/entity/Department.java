@@ -23,7 +23,7 @@ public final class Department extends Entity // Immutable because it's not suppo
 	public static List<Department> fetch () throws Exception
 	{
 		// Please tell me this is a joke... //
-		URL url = new URL ("http://timetables.lyit.ie/js/filter.js");
+		final URL url = new URL ("http://timetables.lyit.ie/js/filter.js");
 
 		Pattern pattern = Pattern.compile ("\\s*deptarray\\[(\\d+)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
 		List<Department> departments = new ArrayList<> ();
@@ -31,15 +31,21 @@ public final class Department extends Entity // Immutable because it's not suppo
 		InputStreamReader streamReader = new InputStreamReader (url.openStream ());
 		BufferedReader reader = new BufferedReader (streamReader);
 
-		StringBuilder strb = new StringBuilder ();
 		String line = null;
-
 		String name = null;
 		String code = null;
 
 		boolean go = false;
 		while ((line = reader.readLine ()) != null)
 		{
+			/*
+			 * There are just so many things that can go wrong here, but I don't think
+			 * there's much I can do against it. At least when the data that is
+			 * retrieved is something else than expected it's pretty safe to assume
+			 * "deptarray[0]" won't be in it, so there should be no unexpected behaviour
+			 * here, and when the HTTP status code != 200 an exception should be thrown
+			 * before we even get here.
+			 */
 			if ((! go) && line.contains ("deptarray[0]"))
 				go = true;
 
@@ -48,8 +54,7 @@ public final class Department extends Entity // Immutable because it's not suppo
 
 			if (go)
 			{
-				// Apparently not... Parsing a Javascript array with regular expressions... Let's go. //
-				//WARNING// This will break when the timetable system changes (so at least when this breaks it may actually be good news) //
+				// This will break when the timetable system changes (so at least when this breaks it doesn't necessaril have to be a bad thing) //
 				Matcher matcher = pattern.matcher (line);
 
 				if (matcher.matches ())
