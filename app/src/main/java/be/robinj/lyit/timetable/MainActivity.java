@@ -42,9 +42,6 @@ public final class MainActivity
 		SharedPreferences prefs = this.getSharedPreferences ("prefs", MODE_PRIVATE);
 		Set<String> strsGroups = prefs.getStringSet ("groups", null);
 
-		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder ().permitAll ().build (); // If this piece of code is still in when I hand in the assignment, I probably didn't have enough time to do it properly. //
-		StrictMode.setThreadPolicy (policy);
-
 		if (strsGroups == null)
 		{
 			Intent intent = new Intent (this, SetupActivity.class);
@@ -138,17 +135,6 @@ public final class MainActivity
 	@Override
 	public boolean onOptionsItemSelected (MenuItem item)
 	{
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
-		int id = item.getItemId ();
-
-		//noinspection SimplifiableIfStatement
-		if (id == R.id.action_settings)
-		{
-			return true;
-		}
-
 		return super.onOptionsItemSelected (item);
 	}
 
