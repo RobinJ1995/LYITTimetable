@@ -28,7 +28,7 @@ import be.robinj.lyit.timetable.entity.Group;
 import be.robinj.lyit.timetable.entity.Lesson;
 import be.robinj.lyit.timetable.listener.MainGroupOnItemSelectedListener;
 
-public class MainActivity
+public final class MainActivity
 	extends ActionBarActivity
 {
 	final HashMap<Group, HashMap<String, List<Lesson>>> timetables = new HashMap<Group, HashMap<String, List<Lesson>>> (); // ... Please have mercy. //
@@ -48,6 +48,7 @@ public class MainActivity
 		if (strsGroups == null)
 		{
 			Intent intent = new Intent (this, SetupActivity.class);
+
 			this.startActivityForResult (intent, 1);
 		}
 		else
@@ -173,7 +174,7 @@ public class MainActivity
 
 		new AlertDialog.Builder (this)
 			.setTitle ("(╯°□°）╯︵ ┻━┻")
-			.setMessage ("Couldn't get timetable for group " + group.getName () + ".\n\n" + ex.getMessage ())
+			.setMessage ("Couldn't get timetable for group " + group.name + ".\n\n" + ex.getMessage ())
 			.create ()
 			.show ();
 	}
@@ -188,33 +189,34 @@ public class MainActivity
 	public void showTimetable (Group group)
 	{
 		int day = new GregorianCalendar ().get (Calendar.DAY_OF_WEEK) - 2; // Week starts on Sunday -> -1 // 1-indexed -> -1 //
+		if (day == -1) // Sunday acording to GregorianCalendar - 2 //
+			day = 6; // Sunday according to my 0-indexed array //
 
 		this.showTimetable (group, day);
 	}
 
 	public void showTimetable (Group group, int day)
 	{
-		if (this.timetables != null)
+		HashMap<String, List<Lesson>> timetable = this.timetables.get (group);
+
+		if (timetable != null)
 		{
-			HashMap<String, List<Lesson>> timetable = this.timetables.get (group);
+			ProgressBar pbProgress = (ProgressBar) this.findViewById (R.id.pbProgress);
+			Spinner spiDay = (Spinner) this.findViewById (R.id.spiDay);
+			ListView lvLessons = (ListView) this.findViewById (R.id.lvLessons);
 
-			if (timetable != null)
-			{
-				ProgressBar pbProgress = (ProgressBar) this.findViewById (R.id.pbProgress);
-				Spinner spiDay = (Spinner) this.findViewById (R.id.spiDay);
-				ListView lvLessons = (ListView) this.findViewById (R.id.lvLessons);
+			String[] days = this.getResources ().getStringArray (R.array.days);
+			String strDay = days[day];
+			spiDay.setEnabled (true);
+			if (spiDay.getSelectedItemPosition () != day)
+				spiDay.setSelection (day);
 
-				String[] days = this.getResources ().getStringArray (R.array.days);
-				String strDay = days[day];
-				spiDay.setEnabled (true);
-				if (spiDay.getSelectedItemPosition () != day)
-					spiDay.setSelection (day);
+			List<Lesson> lessons = timetable.get (strDay);
 
-				lvLessons.setAdapter (new MainLessonAdapter (this, timetable.get (strDay)));
+			lvLessons.setAdapter (lessons != null ? new MainLessonAdapter (this, lessons) : null);
 
-				pbProgress.setVisibility (View.GONE);
-				lvLessons.setVisibility (View.VISIBLE);
-			}
+			pbProgress.setVisibility (View.GONE);
+			lvLessons.setVisibility (View.VISIBLE);
 		}
 	}
 }

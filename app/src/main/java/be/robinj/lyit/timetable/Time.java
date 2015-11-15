@@ -5,10 +5,10 @@ import java.text.DecimalFormat;
 /**
  * Created by robin on 11/11/15.
  */
-public class Time
+public class Time // Mutable, because it would make sense to extend this class in future (for example to add a member to store the number of seconds in) //
 {
-	private short h;
-	private short m;
+	public final short h;
+	public final short m;
 
 	public Time (short h, short m)
 	{

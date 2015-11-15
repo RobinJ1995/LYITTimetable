@@ -7,9 +7,9 @@ import android.widget.CheckBox;
 /**
  * Created by robin on 13/10/15.
  */
-public class SetupGroupOnTextviewClickedListener implements OnClickListener
+public final class SetupGroupOnTextviewClickedListener implements OnClickListener
 {
-	private CheckBox cbxSelected;
+	private final CheckBox cbxSelected;
 
 	public SetupGroupOnTextviewClickedListener (CheckBox cbxSelected)
 	{

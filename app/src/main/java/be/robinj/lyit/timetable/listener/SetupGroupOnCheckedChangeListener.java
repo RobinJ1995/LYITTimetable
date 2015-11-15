@@ -13,11 +13,11 @@ import be.robinj.lyit.timetable.entity.Group;
 /**
  * Created by robin on 13/10/15.
  */
-public class SetupGroupOnCheckedChangeListener implements OnCheckedChangeListener
+public final class SetupGroupOnCheckedChangeListener implements OnCheckedChangeListener
 {
-	private List<Group> checkedGroups;
-	private Group group;
-	private Button btnContinue;
+	private final List<Group> checkedGroups;
+	private final Group group;
+	private final Button btnContinue;
 
 	public SetupGroupOnCheckedChangeListener (List<Group> checkedGroups, Group group, Button btnContinue)
 	{

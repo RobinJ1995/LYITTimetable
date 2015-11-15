@@ -23,7 +23,7 @@ public class Timetable
 {
 	public static HashMap<String, List<Lesson>> fetch (Group group) throws IOException
 	{
-		final String url = "http://www.lyit.ie:8001/reporting/textspreadsheet;student+set;id;" + URLEncoder.encode (group.getCode ()) + "%0D%0A%23?t=student+set+textspreadsheet&template=student+set+textspreadsheet";
+		final String url = "http://www.lyit.ie:8001/reporting/textspreadsheet;student+set;id;" + URLEncoder.encode (group.code) + "%0D%0A%23?t=student+set+textspreadsheet&template=student+set+textspreadsheet";
 		// %0D%0A%23 // Decoded : "\r\n#" //
 
 		HashMap<String, List<Lesson>> data = new HashMap<> ();

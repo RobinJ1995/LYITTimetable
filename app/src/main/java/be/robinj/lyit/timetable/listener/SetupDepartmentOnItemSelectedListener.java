@@ -14,9 +14,9 @@ import be.robinj.lyit.timetable.entity.Department;
 /**
  * Created by robin on 07/10/15.
  */
-public class SetupDepartmentOnItemSelectedListener implements AdapterView.OnItemSelectedListener
+public final class SetupDepartmentOnItemSelectedListener implements AdapterView.OnItemSelectedListener
 {
-	private SetupActivity parent;
+	private final SetupActivity parent;
 
 	public SetupDepartmentOnItemSelectedListener (SetupActivity parent)
 	{

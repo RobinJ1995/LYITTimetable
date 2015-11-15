@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
 /**
  * Created by robin on 11/09/15.
  */
-public class Department extends Entity
+public final class Department extends Entity // Immutable because it's not supposed to be inherited from //
 {
 	public Department (String name, String code)
 	{

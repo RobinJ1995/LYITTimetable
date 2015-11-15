@@ -3,9 +3,9 @@ package be.robinj.lyit.timetable;
 /**
  * Created by robin on 11/11/15.
  */
-public class ThreadPoolThread extends Thread
+public class ThreadPoolThread extends Thread // Mutable, because it would make sense to extend this class in future //
 {
-	private ThreadPoolCoordinator coordinator;
+	private final ThreadPoolCoordinator coordinator;
 
 	public ThreadPoolThread (ThreadPoolCoordinator coordinator)
 	{

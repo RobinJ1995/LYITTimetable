@@ -57,8 +57,8 @@ public class SetupDepartmentAdapter
 		}
 		else
 		{
-			name = entity.getName ();
-			code = entity.getCode ();
+			name = entity.name;
+			code = entity.code;
 		}
 
 		tvName.setText (name);

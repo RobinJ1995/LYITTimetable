@@ -13,14 +13,16 @@ import be.robinj.lyit.timetable.Timespan;
 /**
  * Created by robin on 07/10/15.
  */
-public class Lesson
-	extends Entity
+public final class Lesson
+	extends Entity // Immutable (final) because this class is not supposed to be inherited from //
 {
-	public Group group;
-	public boolean practical;
-	public Timespan timespan;
-	public List<String> rooms;
-	public List<String> staff;
+	public final Group group;
+	public final boolean practical;
+	public final Timespan timespan;
+	public final List<String> rooms;
+	public final List<String> staff;
+	// Immutable (final) because there is no reason for these to ever be changed after initialisation //
+	// Public because in this case getter methods don't seem to offer any advantages //
 
 	public Lesson (String name, String code, Group group, boolean practical, Timespan timespan, List<String> rooms, List<String> staff)
 	{

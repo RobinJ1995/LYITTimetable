@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
 /**
  * Created by robin on 07/10/15.
  */
-public class Group extends Entity
+public final class Group extends Entity // Immutable because it's not supposed to be inherited from //
 {
-	private String departmentCode;
+	public final String departmentCode;
 
 	public Group (String name, String code, String departmentCode)
 	{
@@ -32,7 +32,6 @@ public class Group extends Entity
 		InputStreamReader streamReader = new InputStreamReader (url.openStream ());
 		BufferedReader reader = new BufferedReader (streamReader);
 
-		StringBuilder strb = new StringBuilder ();
 		String line = null;
 
 		String name = null;
@@ -86,15 +85,5 @@ public class Group extends Entity
 		reader.close ();
 
 		return groups;
-	}
-
-	public String getDepartmentCode ()
-	{
-		return this.departmentCode;
-	}
-
-	public void setDepartmentCode (String departmentCode)
-	{
-		this.departmentCode = departmentCode;
 	}
 }

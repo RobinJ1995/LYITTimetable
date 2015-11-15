@@ -3,10 +3,11 @@ package be.robinj.lyit.timetable;
 /**
  * Created by robin on 11/11/15.
  */
-public class Timespan
+public final class Timespan // Immutable because I don't want this to be inherited from //
 {
-	public Time start;
-	public Time end;
+	// Immutable because no reason to change these, and getters have no advantage over just making these members public here //
+	public final Time start;
+	public final Time end;
 
 	public Timespan (Time start, Time end)
 	{

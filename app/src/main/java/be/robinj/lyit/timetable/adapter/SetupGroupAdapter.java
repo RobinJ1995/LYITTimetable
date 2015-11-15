@@ -49,8 +49,8 @@ public class SetupGroupAdapter
 
 		cbxSelected.setOnCheckedChangeListener (null); // Views inside a ListView get recycled; Get rid of the old listener //
 
-		tvName.setText (entity.getName ());
-		tvCode.setText (entity.getCode ());
+		tvName.setText (entity.name);
+		tvCode.setText (entity.code);
 		cbxSelected.setChecked (this.checkedGroups.contains (entity));
 
 		SetupGroupOnTextviewClickedListener clickedListener = new SetupGroupOnTextviewClickedListener (cbxSelected);

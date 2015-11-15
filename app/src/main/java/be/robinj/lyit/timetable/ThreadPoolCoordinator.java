@@ -9,10 +9,10 @@ import java.util.concurrent.TimeUnit;
 /**
  * Created by robin on 11/11/15.
  */
-public class ThreadPoolCoordinator
+public class ThreadPoolCoordinator // Mutable (not final), because it would make sense to extend this class in future //
 {
-	private Set<ThreadPoolThread> threads = new HashSet<ThreadPoolThread> ();
-	private BlockingQueue<Runnable> tasks = new LinkedTransferQueue<Runnable> ();
+	private final Set<ThreadPoolThread> threads = new HashSet<ThreadPoolThread> ();
+	private final BlockingQueue<Runnable> tasks = new LinkedTransferQueue<Runnable> (); //TODO//
 
 	public ThreadPoolCoordinator (int numberOfThreads)
 	{

@@ -10,10 +10,10 @@ import be.robinj.lyit.timetable.entity.Group;
 /**
  * Created by robin on 07/10/15.
  */
-public class MainGroupOnItemSelectedListener
+public final class MainGroupOnItemSelectedListener
 	implements AdapterView.OnItemSelectedListener
 {
-	private MainActivity parent;
+	private final MainActivity parent;
 
 	public MainGroupOnItemSelectedListener (MainActivity parent)
 	{

@@ -17,7 +17,7 @@ import java.util.Set;
 import be.robinj.lyit.timetable.async.AsyncSetupFetchDepartments;
 import be.robinj.lyit.timetable.entity.Group;
 
-public class SetupActivity
+public final class SetupActivity
 	extends ActionBarActivity
 {
 	private TextView tvStatus;
@@ -83,7 +83,7 @@ public class SetupActivity
 
 		Set<String> groups = new HashSet<String> ();
 		for (Group group : this.checkedGroups)
-			groups.add (group.getName () + "\n" + group.getCode () + "\n" + group.getDepartmentCode ());
+			groups.add (group.name + "\n" + group.code + "\n" + group.departmentCode);
 
 		editor.putStringSet ("groups", groups);
 

@@ -19,12 +19,12 @@ import be.robinj.lyit.timetable.entity.Group;
 /**
  * Created by robin on 11/09/15.
  */
-public class AsyncSetupFetchGroups
+public final class AsyncSetupFetchGroups
 	extends AsyncTask<Void, Void, List<Group>>
 {
-	private SetupActivity parent;
-	private ListView lvGroup;
-	private Department department;
+	private final SetupActivity parent;
+	private final ListView lvGroup;
+	private final Department department;
 	private static List<Group> groups;
 
 	public AsyncSetupFetchGroups (SetupActivity parent, ListView lvGroup, Department department)
@@ -46,7 +46,7 @@ public class AsyncSetupFetchGroups
 
 			for (Group group : AsyncSetupFetchGroups.groups)
 			{
-				if (this.department.getCode ().equals (group.getDepartmentCode ()))
+				if (this.department.code.equals (group.departmentCode))
 					results.add (group);
 			}
 

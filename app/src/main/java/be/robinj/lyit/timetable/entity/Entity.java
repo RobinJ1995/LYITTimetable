@@ -5,26 +5,14 @@ package be.robinj.lyit.timetable.entity;
  */
 public class Entity
 {
-	private String name;
-	private String code;
-
-	protected Entity ()
-	{
-	}
+	// Immutable (final) because I don't want these to be changed after initialisation //
+	public final String name;
+	public final String code;
+	// I see no good reason to use separate getter methods over just making them public in this case //
 
 	public Entity (String name, String code)
 	{
 		this.name = name;
 		this.code = code;
-	}
-
-	public String getName ()
-	{
-		return this.name;
-	}
-
-	public String getCode ()
-	{
-		return this.code;
 	}
 }

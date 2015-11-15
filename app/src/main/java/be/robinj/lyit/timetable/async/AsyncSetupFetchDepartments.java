@@ -15,10 +15,10 @@ import be.robinj.lyit.timetable.listener.SetupDepartmentOnItemSelectedListener;
 /**
  * Created by robin on 11/09/15.
  */
-public class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List<Department>>
+public final class AsyncSetupFetchDepartments extends AsyncTask<Void, Void, List<Department>>
 {
-	private SetupActivity parent;
-	private Spinner spiDepartment;
+	private final SetupActivity parent;
+	private final Spinner spiDepartment;
 
 	public AsyncSetupFetchDepartments (SetupActivity parent, Spinner spiDepartment)
 	{

@@ -37,7 +37,7 @@ public class MainLessonAdapter
 		TextView tvDuration = (TextView) view.findViewById (R.id.tvDuration);
 		TextView tvEnd = (TextView) view.findViewById (R.id.tvEnd);
 
-		tvName.setText (entity.getName ());
+		tvName.setText (entity.name);
 		tvStart.setText (entity.timespan.start.toString ());
 		tvDuration.setText ("");
 		tvEnd.setText (entity.timespan.end.toString ());

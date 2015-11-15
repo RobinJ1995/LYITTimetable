@@ -35,8 +35,8 @@ public class MainGroupAdapter
 		TextView tvName = (TextView) view.findViewById (R.id.tvName);
 		TextView tvCode = (TextView) view.findViewById (R.id.tvCode);
 
-		tvName.setText (entity.getName ());
-		tvCode.setText (entity.getCode ());
+		tvName.setText (entity.name);
+		tvCode.setText (entity.code);
 
 		view.setTag (entity);
 
