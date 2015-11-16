@@ -20,7 +20,7 @@ import be.robinj.lyit.timetable.listener.SetupGroupOnTextviewClickedListener;
 /**
  * Created by robin on 11/09/15.
  */
-public class SetupGroupAdapter
+public final class SetupGroupAdapter
 	extends ArrayAdapter<Group>
 {
 	private Button btnContinue;

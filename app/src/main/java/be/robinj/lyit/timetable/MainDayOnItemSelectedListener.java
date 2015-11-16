@@ -7,7 +7,7 @@ import android.widget.AdapterView;
 /**
  * Created by robin on 07/10/15.
  */
-public class MainDayOnItemSelectedListener
+public final class MainDayOnItemSelectedListener
 	implements AdapterView.OnItemSelectedListener
 {
 	private final MainActivity parent;

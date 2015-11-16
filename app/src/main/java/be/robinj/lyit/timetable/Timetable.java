@@ -19,7 +19,7 @@ import be.robinj.lyit.timetable.entity.Lesson;
 /**
  * Created by robin on 14/10/15.
  */
-public class Timetable
+public final class Timetable
 {
 	public static HashMap<String, List<Lesson>> fetch (Group group) throws IOException
 	{

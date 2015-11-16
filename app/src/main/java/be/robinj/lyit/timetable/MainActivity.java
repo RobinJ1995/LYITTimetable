@@ -71,9 +71,11 @@ public final class MainActivity
 							@Override
 							public void run ()
 							{
+								Log.v ("pbp", "Thread started: Fetch timetable for " + group.name);
+
 								try
 								{
-									final HashMap<String, List<Lesson>> data = Timetable.fetch (group);
+									final HashMap<String, List<Lesson>> data = Timetable.fetch (group); // Declared final so it is accessible from inside the Runnable //
 
 									runOnUiThread (new Runnable ()
 									{
@@ -95,6 +97,8 @@ public final class MainActivity
 										}
 									});
 								}
+
+								Log.v ("pbp", "Thread finished: Fetch timetable for " + group.name);
 							}
 						}
 					);

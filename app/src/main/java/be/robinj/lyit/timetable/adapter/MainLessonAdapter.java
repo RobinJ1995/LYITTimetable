@@ -16,7 +16,7 @@ import be.robinj.lyit.timetable.entity.Lesson;
 /**
  * Created by robin on 11/09/15.
  */
-public class MainLessonAdapter
+public final class MainLessonAdapter
 	extends ArrayAdapter<Lesson>
 {
 	public MainLessonAdapter (Context context, List<Lesson> entities)

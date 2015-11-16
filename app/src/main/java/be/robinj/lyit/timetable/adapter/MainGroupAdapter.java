@@ -16,7 +16,7 @@ import be.robinj.lyit.timetable.entity.Group;
 /**
  * Created by robin on 11/09/15.
  */
-public class MainGroupAdapter
+public final class MainGroupAdapter
 	extends ArrayAdapter<Group>
 {
 	public MainGroupAdapter (Context context, List<Group> entities)

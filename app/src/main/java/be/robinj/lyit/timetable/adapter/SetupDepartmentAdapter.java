@@ -15,7 +15,7 @@ import be.robinj.lyit.timetable.entity.Department;
 /**
  * Created by robin on 11/09/15.
  */
-public class SetupDepartmentAdapter
+public final class SetupDepartmentAdapter
 	extends ArrayAdapter<Department>
 {
 	public SetupDepartmentAdapter (Context context, List<Department> entities)
