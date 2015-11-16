@@ -3,6 +3,7 @@ package be.robinj.lyit.timetable.entity;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -25,11 +26,14 @@ public final class Group extends Entity // Immutable because it's not supposed t
 	public static List<Group> fetch () throws Exception
 	{
 		final URL url = new URL ("http://timetables.lyit.ie/js/filter.js");
+		URLConnection conn = url.openConnection ();
+		conn.setConnectTimeout (2500);
+		conn.setReadTimeout (2500);
 
 		Pattern pattern = Pattern.compile ("\\s*studsetarray\\[(\\d+)\\]\\s*\\[(\\d)\\]\\s*=\\s*\\\"([^\\\"]+)\\\";", Pattern.DOTALL | Pattern.MULTILINE);
 		List<Group> groups = new ArrayList<> ();
 
-		InputStreamReader streamReader = new InputStreamReader (url.openStream ());
+		InputStreamReader streamReader = new InputStreamReader (conn.getInputStream ());
 		BufferedReader reader = new BufferedReader (streamReader);
 
 		String line = null;
