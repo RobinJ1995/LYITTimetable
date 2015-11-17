@@ -23,13 +23,24 @@ public final class Timetable
 {
 	public static HashMap<String, List<Lesson>> fetch (Group group) throws IOException
 	{
+		Document document = Timetable.download (group);
+
+		return Timetable.parse (group, document);
+	}
+
+	public static Document download (Group group) throws IOException
+	{
 		final String url = "http://www.lyit.ie:8001/reporting/textspreadsheet;student+set;id;" + URLEncoder.encode (group.code) + "%0D%0A%23?t=student+set+textspreadsheet&template=student+set+textspreadsheet";
 		// %0D%0A%23 // Decoded : "\r\n#" //
 
+		return Jsoup.connect (url).timeout (5000).get ();
+	}
+
+	public static HashMap<String, List<Lesson>> parse (Group group, Document document) throws IOException
+	{
 		HashMap<String, List<Lesson>> data = new HashMap<> ();
 		String day = null;
 
-		Document document = Jsoup.connect (url).timeout (5000).get ();
 		for (Element element : document.body ().children ())
 		{
 			if ("p".equalsIgnoreCase (element.tagName ())) // Calling .equals () on the literal avoids NullPointerExceptions //
@@ -80,7 +91,7 @@ public final class Timetable
 									{
 										String trimmed = strRoom.trim ();
 
-										if (!trimmed.isEmpty ())
+										if (! trimmed.isEmpty ())
 											rooms.add (trimmed);
 									}
 
@@ -89,7 +100,7 @@ public final class Timetable
 									{
 										String trimmed = strStaff.trim ();
 
-										if (!trimmed.isEmpty ())
+										if (! trimmed.isEmpty ())
 											staff.add (trimmed);
 									}
 

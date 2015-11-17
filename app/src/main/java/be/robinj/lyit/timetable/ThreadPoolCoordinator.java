@@ -16,7 +16,7 @@ public class ThreadPoolCoordinator // Mutable (not final), because it would make
 {
 	private final Activity parent;
 	private final Set<ThreadPoolThread> threads = new HashSet<ThreadPoolThread> ();
-	private final BlockingQueue<Runnable> tasks = new LinkedTransferQueue<Runnable> (); //TODO//
+	private final BlockingQueue<Runnable> tasks = new LinkedTransferQueue<Runnable> ();
 
 	public ThreadPoolCoordinator (Activity parent, int numberOfThreads)
 	{
